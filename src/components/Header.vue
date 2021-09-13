@@ -2,11 +2,8 @@
   <div class="navbar">
     <img class="logo" alt="Vue logo" src="../assets/logo.png" />
     <ul>
-      <li><a href="">HOME</a></li>
-      <li><a href="">ABOUT</a></li>
-      <li><a href="">SPECIFICATIONS</a></li>
-      <li><a href="">PRODUCTS</a></li>
-      <li><a href="">CONNECT</a></li>
+      <li><a href="">FILMS</a></li>
+      <li><a href="">PEOPLE</a></li>
     </ul>
   </div>
 </template>
@@ -33,8 +30,10 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding-bottom: 4em;
 }
 .logo{
+    margin-top: 2em;
     max-width: 140px;
     cursor: pointer;
 }

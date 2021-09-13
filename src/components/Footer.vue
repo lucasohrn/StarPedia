@@ -4,9 +4,7 @@
     <ul>
       <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">Lucas Öhrn</a></li>
       <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">Sixten Larsson</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
+      <p>hej</p>
     </ul>
   </div>
 </template>

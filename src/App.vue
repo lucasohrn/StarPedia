@@ -1,16 +1,13 @@
 <template>
-  <div>
+  <div class="page">
     <Header></Header>
-    <div>
-      <Main msg="Welcome to Your Vue.js App" />
-      
-    </div>
 
-    <div>
+    <div class="body">
+      <Main msg="Welcome to Your Vue.js App" />
       <Main></Main>
     </div>
 
-    <div>
+    <div class="footer">
       <Footer></Footer>
     </div>
   </div>
@@ -38,6 +35,29 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+*{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+.page {
+  height: 100vh;
+  width: 100%;
+  background-image: url(./assets/background.png);
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+.body {
+  background-color: blanchedalmond;
+  margin-left: 50px;
+  margin-right: 50px;
+  height: 590px;
+}
+.footer {
+  background-color: brown;
+  margin-left: 50px;
+  margin-right: 50px;
 }
 </style>
