@@ -2,8 +2,7 @@
   <div class="navbar">
     <img class="logo" alt="Vue logo" src="../assets/logo.png" />
     <ul>
-      <li><a href="">FILMS</a></li>
-      <li><a href="">PEOPLE</a></li>
+      <li><a href="">StarPedia</a></li>
     </ul>
   </div>
 </template>
@@ -22,7 +21,7 @@ export default {
 *{
     margin: 0;
     padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     margin-top: 3em;
 }
 .navbar{
@@ -31,12 +30,11 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-bottom: 4em;
+    padding-bottom: 2em;
 }
 .logo{
     margin-top: 2em;
     max-width: 140px;
-    cursor: pointer;
 }
 .navbar ul li{
     list-style: none;

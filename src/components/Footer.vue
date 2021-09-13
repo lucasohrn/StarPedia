@@ -2,8 +2,8 @@
   <div class="footer">
     <h3>About Us</h3>
     <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">Lucas Öhrn</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">Sixten Larsson</a></li>
+      <li><a>Lucas Öhrn</a></li>
+      <li><a>Sixten Larsson</a></li>
       <p>hej</p>
     </ul>
   </div>
@@ -20,6 +20,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+*{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
 h3 {
   margin: 40px 0 0;
 }
@@ -32,6 +35,6 @@ li {
   margin: 0 10px;
 }
 a {
-  color: #42b983;
+  color: #6586cc;
 }
 </style>

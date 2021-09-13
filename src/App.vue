@@ -3,7 +3,6 @@
     <Header></Header>
 
     <div class="body">
-      <Main msg="Welcome to Your Vue.js App" />
       <Main></Main>
     </div>
 
@@ -50,13 +49,13 @@ export default {
   position: relative;
 }
 .body {
-  background-color: blanchedalmond;
+  background-color: rgb(255, 255, 255);
   margin-left: 50px;
   margin-right: 50px;
   height: 590px;
 }
 .footer {
-  background-color: brown;
+  background-color: rgb(255, 255, 255);
   margin-left: 50px;
   margin-right: 50px;
 }
