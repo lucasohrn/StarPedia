@@ -22,7 +22,8 @@ export default {
 *{
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 3em;
 }
 .navbar{
     width: 88%;
@@ -44,7 +45,7 @@ export default {
 }
 .navbar ul li a{
     text-decoration: none;
-    color: #5f5f5f;
-    font-size: 15px;
+    color: #fdf5c9;
+    font-size: 30px;
 }
 </style>
