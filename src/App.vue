@@ -4,6 +4,7 @@
 
     <div class="body">
       <Main></Main>
+      <People></People>
     </div>
 
     <div class="footer">
@@ -16,6 +17,7 @@
 import Main from "./components/Main.vue";
 import Header from "./components/Header.vue";
 import Footer from "./components/Footer.vue";
+import People from "./components/People.vue"
 
 export default {
   name: "App",
@@ -23,6 +25,7 @@ export default {
     Main,
     Header,
     Footer,
+    People
   },
 };
 </script>

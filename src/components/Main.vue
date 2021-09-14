@@ -8,7 +8,9 @@
         <img src="../assets/search.png" alt="search" class="searchButton" />
       </button>
     </div>
-  </div>
+
+
+    </div>
 </template>
 
 <script>
@@ -39,5 +41,4 @@ h1 {
 .search input {
   height: 2em;
 }
-
 </style>
