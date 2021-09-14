@@ -24,6 +24,8 @@
         </li>
       </ul>
     </div>
+    <button class="previous">Previous</button>
+    <button v-on:click="getNext">next </button>
   </div>
 </template>
 
@@ -37,7 +39,19 @@ export default {
     url: `https://swapi.dev/api/people`,
   }),
   methods: {
-    async getPeople() {
+    getNext(){
+      if (this.dataFromApi.next != null) {
+        this.url = this.dataFromApi.next
+        console.log(this.url)
+      }  
+    },
+    async getPrevious(){
+      if (this.dataFromApi.previous != null) {
+        this.url = this.dataFromApi.previous
+      }
+    },
+
+    async getApiData() {
       if (!this.dataFromApi) {
         return "";
       } else {

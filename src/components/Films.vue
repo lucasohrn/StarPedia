@@ -38,7 +38,7 @@ export default {
     films: [],
   }),
   methods: {
-    async sunrise() {
+    async getAPIData() {
       if (!this.dataFromApi) {
         return "";
       } else {
