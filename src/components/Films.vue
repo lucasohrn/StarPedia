@@ -79,41 +79,16 @@ export default {
   flex: 1;
   font-family: Georgia, "Times New Roman", Times, serif;
 }
-.component {
-  border: 1px solid gray;
-  padding: 1em;
-  margin: 1em;
-  background: lightcoral;
-}
-p {
-  color: rgb(30, 28, 31);
-  font-size: 1.5em;
-  margin-top: 1em;
-  margin-left: 1em;
-  margin-right: 1em;
-}
-.card {
-  margin-left: 1.5em;
-  background-color: rgb(236, 232, 240);
-  width: 25vh;
-  flex: 1;
-  float: left;
-  margin: 1em;
-}
-.container ul li {
-  list-style: none;
-}
-.container {
-  display: flex;
-  margin-left: 100px;
-  margin-right: 20px;
-}
 .opening-crawl {
   font-size: 0.7em;
   display: none;
+  position: relative;
+  z-index: 2;
 }
 .expand:hover .opening-crawl {
-  display: block;
+  display:block;
+  background: #bebebe;
+  color: #000;
 }
 .normal-text {
   font-weight: normal;
@@ -128,5 +103,61 @@ h5 {
   margin-top: 1em;
   margin-left: 1em;
   margin-right: 1em;
+}
+.component {
+  border: 1px solid gray;
+  padding: 1em;
+  margin: 1em;
+  background: lightcoral;
+}
+p {
+  color: rgb(30, 28, 31);
+  font-size: 1.5em;
+  margin-top: 1em;
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+.card {
+  margin-left: 1.5em;
+  background-color: rgb(236, 232, 240);
+  width: 25vh;
+  flex: 1;
+  float: left;
+  margin: 1em;
+}
+
+.card {
+  float: left;
+  width: 250px;
+  height: 10rem;
+  background-color: #3c3650;
+  border-radius: 10px;
+  box-shadow: -1rem 0 3rem #000;
+/*   margin-left: -50px; */
+  transition: 0.4s ease-out;
+  position:relative;
+  left: 0px;
+}
+.card:not(:first-child) {
+    margin-left: -50px;
+}
+.card:hover {
+  transform: translateY(-20px);
+  transition: 0.4s ease-out;
+  background-color: rgb(103, 85, 148);
+}
+.card:hover ~ .card {
+  position: relative;
+  left: 50px;
+  transition: 0.4s ease-out;
+}
+.container ul li {
+  list-style: none;
+}
+.container {
+  display: flex;
+  margin-left: 100px;
+  margin-right: 60px;
 }
 </style>

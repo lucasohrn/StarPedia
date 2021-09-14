@@ -33,13 +33,14 @@ h1 {
   opacity: 0;
 }
 .search {
-  margin-top: 2em;
+  margin-top: 0px;
 }
 .searchButton {
   max-width: 2em;
   cursor: pointer;
 }
 .search input {
+  margin-bottom: 20px;
   height: 2em;
 }
 </style>
