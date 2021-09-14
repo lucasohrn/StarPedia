@@ -66,6 +66,7 @@ export default {
 
 <style scoped>
 * {
+  flex: 1;
   font-family: Georgia, "Times New Roman", Times, serif;
 }
 .component {
@@ -79,15 +80,20 @@ p {
   font-size: 1.5em;
 }
 .card {
-  margin: 2em;
+  margin-left: 1.5em;
   background-color: rgb(236, 232, 240);
-  width: 250px;
+  width: 25vh;
+  flex: 1;
+  float: left;
+  margin: 1em;
 }
-.container ul li{
-    list-style: none;
+.container ul li {
+  list-style: none;
 }
 .container {
-    padding-bottom: 50px;
+  display: flex;
+  margin-left: 100px;
+  margin-right: 20px;
 }
 .opening-crawl{
     font-size: 0.7em;
