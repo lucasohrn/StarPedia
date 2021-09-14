@@ -4,9 +4,16 @@
 
     <div class="body">
       <Main></Main>
-      <button class="showPeople" v-on:click="isHidden = true">Show Peoples</button>
-      <button class="showFilms" v-show="enabled" v-on:click="isHidden = false">Show Films</button>
-      
+      <button
+        class="showPeople"
+        v-on:click="myFunction()"
+      >
+        Show Peoples
+      </button>
+      <button class="showFilms" :disabled=isHidden v-on:click="myFunction()">
+        Show Films
+      </button>
+
       <People v-if="isHidden"></People>
       <Films v-if="!isHidden"></Films>
     </div>
@@ -31,17 +38,20 @@ export default {
     Header,
     Footer,
     People,
-    Films
+    Films,
   },
   data: () => ({
-    isHidden: false,
-    enabled: true
+    isHidden: true
   }),
   methods: {
-        hideText() {
-            this.enabled = !this.enabled
-        }
-    }
+    myFunction: function () {
+      if (this.isHidden) {
+        this.isHidden = false;
+      } else {
+        this.isHidden = true;
+      }
+    },
+  }
 };
 </script>
 
@@ -53,10 +63,10 @@ export default {
   text-align: center;
   color: #7b7e81;
 }
-*{
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
+* {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
 }
 .page {
   background-image: url(./assets/background.png);
@@ -68,7 +78,7 @@ export default {
   margin-right: 50px;
 }
 .footer {
-  position:relative;
+  position: relative;
   background-color: #2c3e50(0, 0, 0);
   margin-left: 50px;
   margin-right: 50px;
