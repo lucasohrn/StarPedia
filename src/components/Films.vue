@@ -9,6 +9,7 @@
             <br />
             <h4>Director:<span class="normal-text">{{' ' + results.director}}</span></h4>
             <h4>episode: <span class="normal-text">{{' ' + results.episode_id}}</span></h4>
+            <h4>Realease date: <span class="normal-text">{{' ' + results.release_date}}</span></h4>
             <h4>opening crawl:</h4>
             <div class="opening-crawl">
               {{ results.opening_crawl }} <br />
@@ -28,7 +29,7 @@ export default {
     films: [],
   }),
   methods: {
-    async sunrise() {
+    async getAPIData() {
       if (!this.dataFromApi) {
         return "";
       } else {
