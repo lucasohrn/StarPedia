@@ -27,7 +27,14 @@ export default {
     people: [],
   }),
   methods: {
-    async sunrise() {
+    async getNext(){
+
+    },
+    async getPrevious(){
+
+    },
+
+    async getApiData() {
       if (!this.dataFromApi) {
         return "";
       } else {
