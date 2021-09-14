@@ -18,7 +18,7 @@ export default {
   name: "Main",
   props: {
     msg: String,
-  },
+  }
 };
 </script>
 
@@ -30,6 +30,7 @@ export default {
 }
 h1 {
   color: black;
+  opacity: 0;
 }
 .search {
   margin-top: 2em;

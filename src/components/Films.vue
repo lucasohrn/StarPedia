@@ -7,15 +7,31 @@
           <div class="card">
             <p>{{ results.title}}</p>
             <br />
-            <h4>Director:<span class="normal-text">{{' ' + results.director}}</span></h4>
-            <h4>episode: <span class="normal-text">{{' ' + results.episode_id}}</span></h4>
-            <h4>Realease date: <span class="normal-text">{{' ' + results.release_date}}</span></h4>
-            <h4>Producer(s): <span class="normal-text">{{'' + results.producer}}</span></h4>
+            <h4>
+              Director:<span class="normal-text">{{
+                " " + results.director
+              }}</span>
+            </h4>
+            <h4>
+              Episode:
+              <span class="normal-text">{{ " " + results.episode_id }}</span>
+            </h4>
+            <h4>
+              Realease date:
+              <span class="normal-text">{{ " " + results.release_date }}</span>
+            </h4>
+            <h4>
+              Producer(s):
+              <span class="normal-text">{{ "" + results.producer }}</span>
+            </h4>
             <h4>Charachters</h4>
             {{results.films.Charachters}}
-            <h4>opening crawl:</h4>
-            <div class="opening-crawl">
-              {{ results.opening_crawl }} <br />
+            <div class="expand">
+              <h4>Opening crawl:</h4>
+              <div class="opening-crawl">
+                <h5>{{ results.opening_crawl }}</h5>
+                <br />
+              </div>
             </div>
           </div>
         </li>
@@ -82,6 +98,9 @@ export default {
 p {
   color: rgb(30, 28, 31);
   font-size: 1.5em;
+  margin-top: 1em;
+  margin-left: 1em;
+  margin-right: 1em;
 }
 .card {
   margin-left: 1.5em;
@@ -99,11 +118,25 @@ p {
   margin-left: 100px;
   margin-right: 20px;
 }
-.opening-crawl{
-    font-size: 0.7em;
+.opening-crawl {
+  font-size: 0.7em;
+  display: none;
 }
-.normal-text{
-    font-weight: normal;
-    font-size: 1em;
+.expand:hover .opening-crawl {
+  display: block;
+}
+.normal-text {
+  font-weight: normal;
+  font-size: 1em;
+}
+h4 {
+  text-align: left;
+  margin-left: 1em;
+}
+h5 {
+  text-align: left;
+  margin-top: 1em;
+  margin-left: 1em;
+  margin-right: 1em;
 }
 </style>
