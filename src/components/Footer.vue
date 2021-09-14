@@ -1,27 +1,33 @@
 <template>
   <div class="footer">
     <h3>About Us</h3>
-    <ul>
-      <li><a>Lucas Öhrn</a></li>
-      <li><a>Sixten Larsson</a></li>
-      <p>hej</p>
+    <ul class="content">
+      <div>
+        <li><a>Lucas Öhrn</a></li>
+        <li><a>Sixten Larsson</a></li>
+      </div>
+      <div>
+        <li><a>.Net4</a></li>
+        <li><a>WebbUtveckling</a></li>
+      </div>
     </ul>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Footer',
+  name: "Footer",
   props: {
-    msg: String
-  }
-}
+    msg: String,
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-*{
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+* {
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
 }
 h3 {
   margin: 40px 0 0;
@@ -35,6 +41,9 @@ li {
   margin: 0 10px;
 }
 a {
-  color: #6586cc;
+  color: #e2e3e5;
+}
+.content {
+    padding-bottom: 2em;
 }
 </style>

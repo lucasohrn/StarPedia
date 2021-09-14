@@ -39,7 +39,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #7b7e81;
 }
 *{
     margin: 0;
@@ -47,21 +47,17 @@ export default {
     font-family: sans-serif;
 }
 .page {
-  height: 100vh;
-  width: 100%;
   background-image: url(./assets/background.png);
   background-size: cover;
-  background-position: center;
-  position: relative;
 }
 .body {
   background-color: rgb(255, 255, 255);
   margin-left: 50px;
   margin-right: 50px;
-  height: 590px;
 }
 .footer {
-  background-color: rgb(255, 255, 255);
+  position:relative;
+  background-color: #2c3e50(0, 0, 0);
   margin-left: 50px;
   margin-right: 50px;
 }

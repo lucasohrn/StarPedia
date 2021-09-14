@@ -14,6 +14,12 @@
             {{ results.birth_year }} <br />
             <h4>Eyecolor:</h4>
             {{ results.eye_color }} <br />
+            <li
+              v-for="films in dataFromApi.results.films"
+              v-bind:key="films.name"
+              >
+              <p>{{films.name}}</p>
+            </li>
           </div>
         </li>
       </ul>
@@ -31,7 +37,7 @@ export default {
     url: `https://swapi.dev/api/people`,
   }),
   methods: {
-    async sunrise() {
+    async getPeople() {
       if (!this.dataFromApi) {
         return "";
       } else {
