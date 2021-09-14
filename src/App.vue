@@ -4,8 +4,11 @@
 
     <div class="body">
       <Main></Main>
-      <People></People>
-      <Films></Films>
+      <button class="showPeople" v-on:click="isHidden = true">Show Peoples</button>
+      <button class="showFilms" v-show="enabled" v-on:click="isHidden = false">Show Films</button>
+      
+      <People v-if="isHidden"></People>
+      <Films v-if="!isHidden"></Films>
     </div>
 
     <div class="footer">
@@ -30,6 +33,15 @@ export default {
     People,
     Films
   },
+  data: () => ({
+    isHidden: false,
+    enabled: true
+  }),
+  methods: {
+        hideText() {
+            this.enabled = !this.enabled
+        }
+    }
 };
 </script>
 
@@ -60,5 +72,11 @@ export default {
   background-color: #2c3e50(0, 0, 0);
   margin-left: 50px;
   margin-right: 50px;
+}
+.showPeople {
+  cursor: pointer;
+}
+.showFilms {
+  cursor: pointer;
 }
 </style>
