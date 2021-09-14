@@ -2,6 +2,8 @@
   <div>
     <h1>People in StarWars</h1>
 
+    <button @click="changePage">click me</button>
+
     <div class="container">
       <ul>
         <li v-for="results in dataFromApi.results" v-bind:key="results.name">
@@ -25,6 +27,8 @@ export default {
     errorMessage: "No results yet",
     dataFromApi: {},
     people: [],
+    index: 0,
+    url: `https://swapi.dev/api/people`,
   }),
   methods: {
     async getNext(){
@@ -38,19 +42,26 @@ export default {
       if (!this.dataFromApi) {
         return "";
       } else {
-        for (let index = 0; index < this.dataFromApi.results.length; index++) {
-          const element = this.dataFromApi.results[index];
-          this.people[index] = element;
-          console.log("loop ", this.people[index]);
+        for (
+          this.index = 0;
+          this.index < this.dataFromApi.results.length;
+          this.index++
+        ) {
+          const element = this.dataFromApi.results[this.index];
+          this.people[this.index] = element;
+          console.log("loop ", this.people[this.index]);
         }
         console.log("loop done", this.people);
         return this.people;
       }
     },
+    changePage() {
+      this.url = `https://swapi.dev/api/people/?page=2`;
+    },
   },
   async mounted() {
     console.log("mounted");
-    const url = `https://swapi.dev/api/people`;
+    const url = this.url;
     let response;
     this.errorMessage = "";
     try {
@@ -72,6 +83,7 @@ export default {
 
 <style scoped>
 * {
+  flex: 1;
   font-family: Georgia, "Times New Roman", Times, serif;
 }
 .component {
@@ -85,14 +97,19 @@ p {
   font-size: 1.5em;
 }
 .card {
-  margin: 2em;
+  margin-left: 1.5em;
   background-color: rgb(236, 232, 240);
-  width: 250px;
+  width: 25vh;
+  flex: 1;
+  float: left;
+  margin: 1em;
 }
-.container ul li{
-    list-style: none;
+.container ul li {
+  list-style: none;
 }
 .container {
-    padding-bottom: 50px;
+  display: flex;
+  margin-left: 100px;
+  margin-right: 20px;
 }
 </style>
