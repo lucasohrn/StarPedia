@@ -79,17 +79,32 @@ export default {
   flex: 1;
   font-family: Georgia, "Times New Roman", Times, serif;
 }
-.opening-crawl {
-  font-size: 0.7em;
-  display: none;
+.card {
+  margin-left: 1.5em;
+  background-color: rgb(236, 232, 240);
+  width: 25vh;
+  flex: 1;
+  float: left;
+  margin: 1em;
+  width: 250px;
+  height: 10rem;
+  background-color: #3c3650;
+  border-radius: 10px;
+  box-shadow: -1rem 0 3rem #000;
+/*   margin-left: -50px; */
+  transition: 0.4s ease-out;
+  position:relative;
+  left: 0px;
+}
+.card:hover {
+  transform: translateY(-20px);
+  background-color: rgb(103, 85, 148);
+}
+/* .card:hover ~ .card {
   position: relative;
-  z-index: 2;
-}
-.expand:hover .opening-crawl {
-  display:block;
-  background: #bebebe;
-  color: #000;
-}
+  left: 50px;
+  transition: 0.4s ease-out;
+} */
 .normal-text {
   font-weight: normal;
   font-size: 1em;
@@ -117,41 +132,6 @@ p {
   margin-left: 1em;
   margin-right: 1em;
 }
-
-.card {
-  margin-left: 1.5em;
-  background-color: rgb(236, 232, 240);
-  width: 25vh;
-  flex: 1;
-  float: left;
-  margin: 1em;
-}
-
-.card {
-  float: left;
-  width: 250px;
-  height: 10rem;
-  background-color: #3c3650;
-  border-radius: 10px;
-  box-shadow: -1rem 0 3rem #000;
-/*   margin-left: -50px; */
-  transition: 0.4s ease-out;
-  position:relative;
-  left: 0px;
-}
-.card:not(:first-child) {
-    margin-left: -50px;
-}
-.card:hover {
-  transform: translateY(-20px);
-  transition: 0.4s ease-out;
-  background-color: rgb(103, 85, 148);
-}
-.card:hover ~ .card {
-  position: relative;
-  left: 50px;
-  transition: 0.4s ease-out;
-}
 .container ul li {
   list-style: none;
 }
@@ -159,5 +139,17 @@ p {
   display: flex;
   margin-left: 100px;
   margin-right: 60px;
+}
+.opening-crawl {
+  font-size: 0.7em;
+  display: none;
+  position: absolute;
+}
+.card:hover .opening-crawl {
+  display: block;
+  background: #bebebe;
+  color: #000;
+  position: absolute;
+  z-index: 100;
 }
 </style>
