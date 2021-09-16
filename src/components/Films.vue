@@ -25,7 +25,7 @@
               <span class="normal-text">{{ "" + results.producer }}</span>
             </h4>
             <h4>Charachters</h4>
-            {{results.films.Charachters}}
+            {{results.Charachters}}
             <div class="expand">
               <h4>Opening crawl:</h4>
               <div class="opening-crawl">
