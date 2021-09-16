@@ -3,16 +3,24 @@
     <Header></Header>
 
     <div class="body">
+      <div class="buttons">
+        <button
+          class="showButton"
+          :disabled="enableDisablePeople"
+          v-on:click="myFunction()"
+        >
+          Show People
+        </button>
+        <button
+          class="showButton"
+          :disabled="enableDisableFilms"
+          v-on:click="myFunction()"
+        >
+          Show Films
+        </button>
+      </div>
+
       <Main></Main>
-      <button
-        class="showPeople"
-        v-on:click="myFunction()"
-      >
-        Show Peoples
-      </button>
-      <button class="showFilms" :disabled=isHidden v-on:click="myFunction()">
-        Show Films
-      </button>
 
       <People v-if="isHidden"></People>
       <Films v-if="!isHidden"></Films>
@@ -41,17 +49,23 @@ export default {
     Films,
   },
   data: () => ({
-    isHidden: true
+    enableDisablePeople: true,
+    enableDisableFilms: false,
+    isHidden: true,
   }),
   methods: {
     myFunction: function () {
-      if (this.isHidden) {
-        this.isHidden = false;
+      if (!this.isHidden) {
+        this.isHidden = !this.isHidden;
+        this.enableDisablePeople = true;
+        this.enableDisableFilms = false;
       } else {
-        this.isHidden = true;
+        this.isHidden = !this.isHidden;
+        this.enableDisablePeople = false;
+        this.enableDisableFilms = true;
       }
     },
-  }
+  },
 };
 </script>
 
@@ -61,7 +75,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #7b7e81;
+  color: #fafafa;
 }
 * {
   margin: 0;
@@ -71,22 +85,24 @@ export default {
 .page {
   background-image: url(./assets/background.png);
   background-size: cover;
+  min-height: 849px;
 }
 .body {
-  background-color: rgb(255, 255, 255);
+  background-color: rgba(88, 100, 107, 0);
   margin-left: 50px;
   margin-right: 50px;
 }
 .footer {
   position: relative;
-  background-color: #2c3e50(0, 0, 0);
+  background-color: #ffffff(0, 0, 0);
   margin-left: 50px;
   margin-right: 50px;
 }
-.showPeople {
+.showButton {
   cursor: pointer;
+  margin: 0.3em;
+  width: 8em;
 }
-.showFilms {
-  cursor: pointer;
+.buttons {
 }
 </style>

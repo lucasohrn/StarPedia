@@ -20,6 +20,7 @@
               >
               <p>{{films.name}}</p>
             </li>
+            <button class="readMore">Read More</button>
           </div>
         </li>
       </ul>
@@ -97,7 +98,7 @@ export default {
 <style scoped>
 * {
   flex: 1;
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 .component {
   border: 1px solid gray;
@@ -106,16 +107,35 @@ export default {
   background: lightcoral;
 }
 p {
-  color: rgb(30, 28, 31);
+  color: rgb(255, 255, 255);
   font-size: 1.5em;
+  margin-top: 0.2em;
 }
 .card {
-  margin-left: 1.5em;
-  background-color: rgb(236, 232, 240);
-  width: 25vh;
   flex: 1;
   float: left;
-  margin: 1em;
+  width: 250px;
+  height: 150px;
+  background-color: #3c3650;
+  border-radius: 10px;
+  box-shadow: -1rem 0 3rem #000;
+/*   margin-left: -50px; */
+  transition: 0.4s ease-out;
+  position: relative;
+  left: 0px;
+}
+.card:not(:first-child) {
+    margin-left: -50px;
+}
+.card:hover {
+  transform: translateY(-20px);
+  transition: 0.4s ease-out;
+  background-color: rgb(103, 85, 148);
+}
+.card:hover ~ .card {
+  position: relative;
+  left: 50px;
+  transition: 0.4s ease-out;
 }
 .container ul li {
   list-style: none;
@@ -123,6 +143,12 @@ p {
 .container {
   display: flex;
   margin-left: 100px;
-  margin-right: 20px;
+  margin-right: 60px;
+}
+.readMore {
+}
+.readMore:hover {
+    background: lightblue;
+    cursor: pointer;
 }
 </style>
