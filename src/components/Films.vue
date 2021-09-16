@@ -83,7 +83,6 @@ export default {
   margin-left: 1.5em;
   background-color: rgb(236, 232, 240);
   width: 25vh;
-  flex: 1;
   float: left;
   margin: 1em;
   width: 250px;
@@ -93,8 +92,6 @@ export default {
   box-shadow: -1rem 0 3rem #000;
 /*   margin-left: -50px; */
   transition: 0.4s ease-out;
-  position:relative;
-  left: 0px;
 }
 .card:hover {
   transform: translateY(-20px);
@@ -140,16 +137,19 @@ p {
   margin-left: 100px;
   margin-right: 60px;
 }
-.opening-crawl {
+.card .opening-crawl {
   font-size: 0.7em;
-  display: none;
-  position: absolute;
+  opacity: 0;
+  position: relative;
+  z-index: 101;
 }
-.card:hover .opening-crawl {
+.expand:hover .opening-crawl {
+  transition: 0.5s all;
   display: block;
   background: #bebebe;
   color: #000;
-  position: absolute;
+  position: relative;
   z-index: 100;
+  opacity: 1;
 }
 </style>
