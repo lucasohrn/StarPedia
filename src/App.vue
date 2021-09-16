@@ -1,34 +1,8 @@
 <template>
   <div class="page">
     <Header></Header>
-
-    <div class="body">
-      <div class="buttons">
-        <button
-          class="showButton"
-          :disabled="enableDisablePeople"
-          v-on:click="myFunction()"
-        >
-          Show People
-        </button>
-        <button
-          class="showButton"
-          :disabled="enableDisableFilms"
-          v-on:click="myFunction()"
-        >
-          Show Films
-        </button>
-      </div>
-
-      <Main></Main>
-
-      <People v-if="isHidden"></People>
-      <Films v-if="!isHidden"></Films>
-    </div>
-
-    <div class="footer">
-      <Footer></Footer>
-    </div>
+    <Main></Main>   
+    <Footer></Footer>
   </div>
 </template>
 
@@ -36,8 +10,6 @@
 import Main from "./components/Main.vue";
 import Header from "./components/Header.vue";
 import Footer from "./components/Footer.vue";
-import People from "./components/People.vue";
-import Films from "./components/Films.vue";
 
 export default {
   name: "App",
@@ -45,26 +17,12 @@ export default {
     Main,
     Header,
     Footer,
-    People,
-    Films,
   },
   data: () => ({
-    enableDisablePeople: true,
-    enableDisableFilms: false,
-    isHidden: true,
+ 
   }),
   methods: {
-    myFunction: function () {
-      if (!this.isHidden) {
-        this.isHidden = !this.isHidden;
-        this.enableDisablePeople = true;
-        this.enableDisableFilms = false;
-      } else {
-        this.isHidden = !this.isHidden;
-        this.enableDisablePeople = false;
-        this.enableDisableFilms = true;
-      }
-    },
+    
   },
 };
 </script>
