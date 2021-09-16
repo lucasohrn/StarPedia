@@ -78,7 +78,6 @@ export default {
       }
     },
     async getCharacters(results) {
-      this.characters = 0
       console.log("urler: ", results.characters);
 
       for (let i = 0; i < results.characters.length; i++) {
@@ -93,7 +92,7 @@ export default {
 
       console.log("finished", this.characters)
 
-      return await this.characters.toString();
+      return this.characters;
     },
 
     async getCharactersNow() {
