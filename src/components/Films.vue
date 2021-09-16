@@ -5,7 +5,7 @@
       <ul>
         <li v-for="results in dataFromApi.results" v-bind:key="results.name">
           <div class="card">
-            <p>{{ results.title }}</p>
+            <p>{{ results.title}}</p>
             <br />
             <h4>
               Director:<span class="normal-text">{{
@@ -16,6 +16,16 @@
               Episode:
               <span class="normal-text">{{ " " + results.episode_id }}</span>
             </h4>
+            <h4>
+              Realease date:
+              <span class="normal-text">{{ " " + results.release_date }}</span>
+            </h4>
+            <h4>
+              Producer(s):
+              <span class="normal-text">{{ "" + results.producer }}</span>
+            </h4>
+            <h4>Charachters</h4>
+            {{results.Charachters}}
             <div class="expand">
               <h4>Opening crawl:</h4>
               <div class="opening-crawl">
