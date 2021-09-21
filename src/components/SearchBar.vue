@@ -1,6 +1,6 @@
 <template>
     <div class="search">
-      <input type="text" />
+      <input type="text" v-model="search" placeholder="search"/>
       <button>
         <img src="../assets/search.png" alt="search" class="searchButton" />
       </button>
@@ -9,7 +9,16 @@
 
 <script>
 export default {
+ data:() =>({
+   search:''
+ }),
 
+  watch:{
+    search(queryString)
+    {
+       this.$emit('updateSearch', queryString)
+    }
+  },
 }
 </script>
 
