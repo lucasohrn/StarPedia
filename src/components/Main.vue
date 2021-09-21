@@ -24,7 +24,7 @@
         </button>
       </div>
 
-      <People searchQuery = search v-show="isHidden"></People>
+      <People :searchQuery="search" v-show="isHidden"></People>
       <Films v-show="!isHidden"></Films>
     </div>
   </div>
@@ -51,6 +51,7 @@ export default {
   methods: {
     onUpdateSearch(queryString) {
       this.search = queryString;
+      console.log("main.onUpdateSearch", queryString)
     },
     myFunction: function () {
       if (!this.isHidden) {

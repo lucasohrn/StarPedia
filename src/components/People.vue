@@ -39,13 +39,18 @@ export default {
     index: 0,
     url: `https://swapi.dev/api/people`,
   }),
+  props: ["searchQuery"],
 
-  props:['searchQuery'],
-
+  watch: {
+    searchQuery: function (newVal, oldVal) {
+      console.log("people.getnext searchqury:", this.searchQuery);
+      this.onSearchBarChange();
+      console.log("people Watch Values: old:",oldVal,"new:",newVal)
+    },
+  },
+  
   methods: {
     getNext() {
-      console.log("searchQuery", this.searchQuery)
-      this.onSearchBarChange();
     },
 
     getPrevious() {
@@ -54,32 +59,33 @@ export default {
       }
     },
 
-    onSearchBarChange(){
-        let query = this.searchQuery;
-        this.people = this.filterItems(this.dataFromApi.results, query);
-        console.log(this.people)
-        return this.people;
+    onSearchBarChange() {
+      let query = this.searchQuery;
+      this.people = this.filterItems(this.dataFromApi.results, query);
+      return this.people;
     },
 
     filterItems(arr, query) {
-      console.log("array:", arr , query)
-      return arr.filter(function (person) {
+      console.log("array:",arr)
+      return arr.filter(person => {
         return person.name.toLowerCase().indexOf(query.toLowerCase()) !== -1;
-    });
+      });
+    },
   },
-},
+  //methods
 
   async mounted() {
-    console.log("mounted");
     const url = this.url;
     let response;
     this.errorMessage = "";
     try {
       response = await fetch(url);
       const data = await response.json();
-      console.log("Data from API: ", data);
-      this.dataFromApi = data;
-    } catch (error) {
+      console.log("People.MountPeople, data from API: ", data);
+
+      this.dataFromApi = data;   
+     
+      } catch (error) {
       if (response) {
         this.errorMessage = "Data is in the wrong format. Try again later.";
       } else {
