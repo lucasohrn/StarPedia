@@ -21,7 +21,7 @@ export default {
 *{
     margin: 0;
     padding: 0;
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family:Georgia, 'Times New Roman', Times, serif;
     margin-top: 3em;
 }
 .navbar{

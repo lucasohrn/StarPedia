@@ -58,13 +58,10 @@
 export default {
   data: () => ({
     errorMessage: "No results yet",
-    dataFromApi: {},
-    films: [],
     movies: {},
     characters: {},
     urls: {},
-    test: {},
-    AllFilms: [],
+    peopleInMovie: {}
   }),
   functions: {
 
@@ -73,35 +70,22 @@ export default {
 
   },
   methods: {
-    getAllStarWarsFilms() {
-      fetch("https://swapi.dev/api/films/")
-        .then((response) => response.json())
-        .then((data) => {
-          this.AllFilms = data;
-        });
-    },
     returnCharacter(movieUrl) {
-      let test = [null];
-      // console.log("Movie Urls: ", movieUrl[0]);
-      // console.log("Movie length: ", movieUrl.length);
-      // console.log("Character Urls: ", this.urls[2]);
-      // console.log("Character Names: ", this.characters[1]);
+      let peopleInMovie = [null];
       for (let i = 0; i < movieUrl.length; i++) {
         for (let j = 1; j < 82; j++) {
           if (movieUrl[i] == this.urls[j]) {
-            test[i] = this.characters[j];
+            peopleInMovie[i] = ("\n" + this.characters[j]);
             break;
           } else {
             continue;
           }
         }
       }
-      // console.log("test: ", test)
-      return test;
+      return peopleInMovie;
     },
   },
   async mounted() {
-    console.log("mountedFilms 1");
     const urlFilms = `https://swapi.dev/api/films`;
     let count = 1;
 
@@ -112,7 +96,6 @@ export default {
     try {
       filmsResponse = await fetch(urlFilms);
       const filmsData = await filmsResponse.json();
-      console.log("Movies data from API: 1", filmsData);
       this.movies = filmsData;
 
       while (count != 82) {
@@ -129,8 +112,6 @@ export default {
         this.characters[count] = peopleData.name;
         count += 1;
       }
-      console.log("Peoples data from API 1: ", this.characters);
-      console.log("Url data from API: 1", this.urls);
     } catch (error) {
       if (filmsResponse || peopleResponse) {
         this.errorMessage = "Data is in the wrong format. Try again later.";
@@ -158,15 +139,16 @@ export default {
   margin: 1em;
   width: 250px;
   height: 14rem;
-  background-color: #3c3650;
+  background-color: #202016;
   border-radius: 10px;
-  box-shadow: -1rem 0 3rem #000;
+  box-shadow: -1rem 0 3rem rgba(189, 197, 69, 0.678);
   /*   margin-left: -50px; */
   transition: 0.5s ease-out;
 }
 .card:hover {
   transform: translateY(-20px);
-  background-color: rgb(103, 85, 148);
+  background-color: rgb(0, 0, 0);
+  transition: 0.5s all;
 }
 /* .card:hover ~ .card {
   position: relative;
@@ -177,6 +159,9 @@ export default {
   font-weight: normal;
   font-size: 1em;
 }
+h1 {
+  margin: 1em;
+}
 h4 {
   text-align: left;
   margin-left: 1em;
@@ -186,15 +171,10 @@ h5 {
   margin-top: 1em;
   margin-left: 1em;
   margin-right: 1em;
-}
-.component {
-  border: 1px solid gray;
-  padding: 1em;
-  margin: 1em;
-  background: lightcoral;
+  color: black;
 }
 p {
-  color: rgb(30, 28, 31);
+  color: rgb(241, 233, 111);
   font-size: 1.5em;
   margin-top: 1em;
   margin-left: 1em;
@@ -221,17 +201,17 @@ p {
 }
 .expand:hover .info {
   transition: 0.5s all;
-  display: block;
-  background: rgb(103, 85, 148);
+  display:list-item;
+  background: rgb(143, 148, 67);
   color: rgb(255, 255, 255);
   position: absolute;
   opacity: 1;
-  margin-left: 140px;
+  margin-left: 150px;
 }
 .expand:hover .opening-crawl {
   transition: 0.5s all;
   display: block;
-  background: rgb(103, 85, 148);
+  background: rgb(143, 148, 67);
   color: rgb(255, 255, 255);
   position: absolute;
   opacity: 1;

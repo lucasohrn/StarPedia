@@ -2,8 +2,6 @@
   <div>
     <h1>People in StarWars</h1>
 
-    <button @click="changePage">click me</button>
-
     <div class="container">
       <ul>
         <li v-for="person in people" v-bind:key="person.name">
@@ -84,7 +82,8 @@ export default {
       const data = await response.json();
       console.log("People.MountPeople, data from API: ", data);
 
-      this.dataFromApi = data;   
+      this.dataFromApi = data;
+      this.onSearchBarChange();
      
       } catch (error) {
       if (response) {
@@ -101,8 +100,7 @@ export default {
 <style scoped>
 * {
   flex: 1;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
+  font-family: Georgia, 'Times New Roman', Times, serif;
 }
 .component {
   border: 1px solid gray;
@@ -111,22 +109,28 @@ export default {
   background: lightcoral;
 }
 p {
-  color: rgb(255, 255, 255);
+  color: rgb(241, 233, 111);
   font-size: 1.5em;
-  margin-top: 0.2em;
+  margin-top: 1em;
+  margin-left: 1em;
+  margin-right: 1em;
+}
+h1 {
+  margin: 1em;
 }
 .card {
-  flex: 1;
+  margin-left: 1.5em;
+  background-color: rgb(236, 232, 240);
+  width: 25vh;
   float: left;
+  margin: 1em;
   width: 250px;
-  height: 150px;
-  background-color: #3c3650;
+  height: 11rem;
+  background-color: #202016;
   border-radius: 10px;
-  box-shadow: -1rem 0 3rem #000;
+  box-shadow: -1rem 0 3rem rgba(189, 197, 69, 0.658);
   /*   margin-left: -50px; */
-  transition: 0.4s ease-out;
-  position: relative;
-  left: 0px;
+  transition: 0.5s ease-out;
 }
 .card:not(:first-child) {
   margin-left: -50px;
@@ -134,7 +138,7 @@ p {
 .card:hover {
   transform: translateY(-20px);
   transition: 0.4s ease-out;
-  background-color: rgb(103, 85, 148);
+  background-color: rgb(0, 0, 0);
 }
 .card:hover ~ .card {
   position: relative;
@@ -148,8 +152,6 @@ p {
   display: flex;
   margin-left: 100px;
   margin-right: 60px;
-}
-.readMore {
 }
 .readMore:hover {
   background: lightblue;
