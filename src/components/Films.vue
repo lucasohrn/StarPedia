@@ -5,7 +5,7 @@
       <ul>
         <li v-for="results in dataFromApi.results" v-bind:key="results.name">
           <div class="card">
-            <p>{{ results.title}}</p>
+            <p>{{ results.title }}</p>
             <br />
             <h4>
               Director:<span class="normal-text">{{
@@ -20,12 +20,26 @@
               Realease date:
               <span class="normal-text">{{ " " + results.release_date }}</span>
             </h4>
+
+            <div class="expand">
+              <h4>Producer(s):</h4>
+              <div class="info">
+                <h5>{{ "" + results.producer }} <br /></h5>
+                <br />
+              </div>
+            </div>
             <h4>
-              Producer(s):
-              <span class="normal-text">{{ "" + results.producer }}</span>
+              <span class="normal-text"></span>
             </h4>
-            <h4>Charachters</h4>
-            {{results.Charachters}}
+
+            <div class="expand">
+              <h4>Charachters:</h4>
+              <div class="info">
+                <h5>{{ getCharacters(results) }} <br /></h5>
+                <br />
+              </div>
+            </div>
+
             <div class="expand">
               <h4>Opening crawl:</h4>
               <div class="opening-crawl">
@@ -46,6 +60,8 @@ export default {
     errorMessage: "No results yet",
     dataFromApi: {},
     films: [],
+    movies: {},
+    characters: {} 
   }),
   methods: {
     async getAPIData() {
@@ -55,15 +71,81 @@ export default {
         for (let index = 0; index < this.dataFromApi.results.length; index++) {
           const element = this.dataFromApi.results[index];
           this.films[index] = element;
-          console.log("loop ", this.films[index]);
+          console.log("loop1 ", this.films[index]);
         }
-        console.log("loop done", this.films);
+        console.log("loop done1", this.films);
         return this.films;
       }
     },
+    async getCharacters(results) {
+      console.log("urler: ", results.characters);
+
+      for (let i = 0; i < results.characters.length; i++) {
+        const url = results.characters[i];
+        console.log("Karaktär3: ", url)
+        const response = await fetch(url);
+        const characterData = await response.json();
+        console.log("Karaktär1: ", characterData)
+        this.characters[i] = characterData.name;
+        console.log("Karaktär: ", characterData.name)
+      }
+
+      console.log("finished", this.characters)
+
+      return this.characters;
+    },
+
+    async getCharactersNow() {
+      if (!this.dataFromApi) {
+        return "ERROR";
+      } 
+      else 
+      {
+        for ( let i = 0; i < this.dataFromApi.results.length; i++) 
+        {
+        //   //console.log("Count", this.dataFromApi.results.length);
+        //   //console.log("CountMovies", this.dataFromApi.results[i].characters);
+        //   // console.log("CountCharacters", this.dataFromApi.results[i].characters.length);
+        //   this.movies[i] = this.dataFromApi.results[i].title;
+
+          for (let j = 0; j < this.dataFromApi.results[i].characters.length; j++) {
+            // console.log("KaraktärURL", this.dataFromApi.results[i].characters[j]);
+            const url = this.dataFromApi.results[i].characters[j];
+            const response = await fetch(url);
+            const characterData = await response.json();
+            // console.log("Data about characters: ", characterData);
+            this.characters[j] = characterData.name;
+          }
+
+          // for (let j = 0; j < this.movies[i].characters.length; j++) {
+          //   const characters = this.movies[i].characters[j];
+          //   console.log("url:", this.characters[j]);
+          //   const urlResponse = characters;
+
+          //   const response = await fetch(urlResponse);
+          //   const characterData = await response.json();
+          //   console.log("Data about characters: ", characterData);
+          //   this.movies.characters[j] = characterData;
+          // }
+        }
+        
+        // return this.characters;
+      }
+        console.log("Url", this.dataFromApi.results[1].characters[1]);
+        console.log("film", this.characters);
+        console.log("loop finished");
+      // // Get all characters
+      // for (let i = 0; i < data.results.characters.length; i++) {
+      //   const urlResponse = data.results.characters[i];
+      //   response = await fetch(urlResponse);
+      //   const characterData = await characterData.json();
+      //   console.log("Data about characters: ", characterData)
+      //   this.characters = characterData
+      // }
+    },
   },
   async mounted() {
-    console.log("mounted");
+    console.log("mountedFilms");
     const url = `https://swapi.dev/api/films`;
     let response;
     this.errorMessage = "";
@@ -93,18 +175,15 @@ export default {
   margin-left: 1.5em;
   background-color: rgb(236, 232, 240);
   width: 25vh;
-  flex: 1;
   float: left;
   margin: 1em;
   width: 250px;
-  height: 10rem;
+  height: 14rem;
   background-color: #3c3650;
   border-radius: 10px;
   box-shadow: -1rem 0 3rem #000;
-/*   margin-left: -50px; */
-  transition: 0.4s ease-out;
-  position:relative;
-  left: 0px;
+  /*   margin-left: -50px; */
+  transition: 0.5s ease-out;
 }
 .card:hover {
   transform: translateY(-20px);
@@ -150,16 +229,35 @@ p {
   margin-left: 100px;
   margin-right: 60px;
 }
-.opening-crawl {
+.card .opening-crawl {
   font-size: 0.7em;
   display: none;
-  position: absolute;
+  position: relative;
+  z-index: 101;
 }
-.card:hover .opening-crawl {
+.card .info {
+  font-size: 0.7em;
+  display: none;
+  position: relative;
+}
+.expand:hover .info {
+  transition: 0.5s all;
   display: block;
-  background: #bebebe;
-  color: #000;
+  background: rgb(103, 85, 148);
+  color: rgb(255, 255, 255);
   position: absolute;
-  z-index: 100;
+  opacity: 1;
+  margin-left: 140px;
+}
+.expand:hover .opening-crawl {
+  transition: 0.5s all;
+  display: block;
+  background: rgb(103, 85, 148);
+  color: rgb(255, 255, 255);
+  position: absolute;
+  opacity: 1;
+}
+.expand {
+  cursor: pointer;
 }
 </style>

@@ -75,6 +75,7 @@ export default {
   //methods
 
   async mounted() {
+    console.log("mountedPeople");
     const url = this.url;
     let response;
     this.errorMessage = "";
