@@ -3,7 +3,7 @@
     <h1>StarWars films</h1>
     <div class="container">
       <ul>
-        <li v-for="results in dataFromApi.results" v-bind:key="results.name">
+        <li v-for="results in movies.results" v-bind:key="results.name">
           <div class="card">
             <p>{{ results.title }}</p>
             <br />
@@ -35,7 +35,10 @@
             <div class="expand">
               <h4>Charachters:</h4>
               <div class="info">
-                <h5>{{ getCharacters(results) }} <br /></h5>
+                <h5>
+                  {{ returnCharacter(results.characters) }}
+                  <br />
+                </h5>
                 <br />
               </div>
             </div>
@@ -61,105 +64,78 @@ export default {
     dataFromApi: {},
     films: [],
     movies: {},
-    characters: {} 
+    characters: {},
+    urls: {},
+    test: {},
+    AllFilms: [],
   }),
+  functions: {},
+  computed: {
+
+  },
   methods: {
-    async getAPIData() {
-      if (!this.dataFromApi) {
-        return "";
-      } else {
-        for (let index = 0; index < this.dataFromApi.results.length; index++) {
-          const element = this.dataFromApi.results[index];
-          this.films[index] = element;
-          console.log("loop1 ", this.films[index]);
-        }
-        console.log("loop done1", this.films);
-        return this.films;
-      }
+    getAllStarWarsFilms() {
+      fetch("https://swapi.dev/api/films/")
+        .then((response) => response.json())
+        .then((data) => {
+          this.AllFilms = data;
+        });
     },
-    async getCharacters(results) {
-      console.log("urler: ", results.characters);
-
-      for (let i = 0; i < results.characters.length; i++) {
-        const url = results.characters[i];
-        console.log("Karaktär3: ", url)
-        const response = await fetch(url);
-        const characterData = await response.json();
-        console.log("Karaktär1: ", characterData)
-        this.characters[i] = characterData.name;
-        console.log("Karaktär: ", characterData.name)
-      }
-
-      console.log("finished", this.characters)
-
-      return this.characters;
-    },
-
-    async getCharactersNow() {
-      if (!this.dataFromApi) {
-        return "ERROR";
-      } 
-      else 
-      {
-        for ( let i = 0; i < this.dataFromApi.results.length; i++) 
-        {
-        //   //console.log("Count", this.dataFromApi.results.length);
-        //   //console.log("CountMovies", this.dataFromApi.results[i].characters);
-        //   // console.log("CountCharacters", this.dataFromApi.results[i].characters.length);
-        //   this.movies[i] = this.dataFromApi.results[i].title;
-
-          for (let j = 0; j < this.dataFromApi.results[i].characters.length; j++) {
-            // console.log("KaraktärURL", this.dataFromApi.results[i].characters[j]);
-            const url = this.dataFromApi.results[i].characters[j];
-            const response = await fetch(url);
-            const characterData = await response.json();
-            // console.log("Data about characters: ", characterData);
-            this.characters[j] = characterData.name;
+    async returnCharacter(movieUrl) {
+      let test = [];
+      console.log("Movie Urls: ", movieUrl);
+      console.log("Movie length: ", movieUrl.length);
+      // console.log("Character Urls: ", this.urls[2]);
+      // console.log("Character Names: ", this.characters[1]);
+      for (let i = 0; i < movieUrl.length; i++) {
+        for (let j = 1; j < 82; j++) {
+          if (movieUrl[i] === this.urls[j]) {
+            test[i] = this.characters[j];
+            break;
+          } else {
+            continue;
           }
-
-          // for (let j = 0; j < this.movies[i].characters.length; j++) {
-          //   const characters = this.movies[i].characters[j];
-          //   console.log("url:", this.characters[j]);
-          //   const urlResponse = characters;
-
-          //   const response = await fetch(urlResponse);
-          //   const characterData = await response.json();
-          //   console.log("Data about characters: ", characterData);
-          //   this.movies.characters[j] = characterData;
-          // }
         }
-        
-        // return this.characters;
       }
-        console.log("Url", this.dataFromApi.results[1].characters[1]);
-        console.log("film", this.characters);
-        console.log("loop finished");
-      // // Get all characters
-      // for (let i = 0; i < data.results.characters.length; i++) {
-      //   const urlResponse = data.results.characters[i];
-      //   response = await fetch(urlResponse);
-      //   const characterData = await characterData.json();
-      //   console.log("Data about characters: ", characterData)
-      //   this.characters = characterData
-      // }
+      console.log("test: ", test)
+      return test;
     },
   },
   async mounted() {
     console.log("mountedFilms");
-    const url = `https://swapi.dev/api/films`;
-    let response;
+    const urlFilms = `https://swapi.dev/api/films`;
+    let count = 1;
+
+    let filmsResponse;
+    let peopleResponse;
+
     this.errorMessage = "";
     try {
-      response = await fetch(url);
-      const data = await response.json();
-      console.log("Data from API: ", data);
-      this.dataFromApi = data;
+      filmsResponse = await fetch(urlFilms);
+      const filmsData = await filmsResponse.json();
+      console.log("Movies data from API: ", filmsData);
+      this.movies = filmsData;
+
+      while (count != 82) {
+
+        peopleResponse = await fetch(
+          `https://swapi.dev/api/people/` + count + `/`
+        );
+        this.urls[count] = `https://swapi.dev/api/people/` + count + `/`;
+        const peopleData = await peopleResponse.json();
+        this.characters[count] = peopleData.name;
+        count += 1;
+      }
+      console.log("Peoples data from API: ", this.characters);
+      console.log("Url data from API: ", this.urls);
     } catch (error) {
-      if (response) {
+      if (filmsResponse || peopleResponse) {
         this.errorMessage = "Data is in the wrong format. Try again later.";
+        console.log("ERROR 1");
       } else {
         this.errorMessage =
           "Could not send request. Check your internet connection.";
+        console.log("ERROR 2");
       }
     }
   },
