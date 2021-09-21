@@ -1,6 +1,6 @@
 <template>
     <div class="search">
-      <input type="text" v-model="search" placeholder="search"/>
+      <input type="text" v-model="search" placeholder="Search.."/>
       <button>
         <img src="../assets/search.png" alt="search" class="searchButton" />
       </button>

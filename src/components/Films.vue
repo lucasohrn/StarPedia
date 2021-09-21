@@ -35,10 +35,7 @@
             <div class="expand">
               <h4>Charachters:</h4>
               <div class="info">
-                <h5>
-                  {{ returnCharacter(results.characters) }}
-                  <br />
-                </h5>
+                <h5>{{ "" + returnCharacter(results.characters) + "\n" }} <br /></h5>
                 <br />
               </div>
             </div>
@@ -69,7 +66,9 @@ export default {
     test: {},
     AllFilms: [],
   }),
-  functions: {},
+  functions: {
+
+  },
   computed: {
 
   },
@@ -81,15 +80,15 @@ export default {
           this.AllFilms = data;
         });
     },
-    async returnCharacter(movieUrl) {
-      let test = [];
-      console.log("Movie Urls: ", movieUrl);
-      console.log("Movie length: ", movieUrl.length);
+    returnCharacter(movieUrl) {
+      let test = [null];
+      // console.log("Movie Urls: ", movieUrl[0]);
+      // console.log("Movie length: ", movieUrl.length);
       // console.log("Character Urls: ", this.urls[2]);
       // console.log("Character Names: ", this.characters[1]);
       for (let i = 0; i < movieUrl.length; i++) {
         for (let j = 1; j < 82; j++) {
-          if (movieUrl[i] === this.urls[j]) {
+          if (movieUrl[i] == this.urls[j]) {
             test[i] = this.characters[j];
             break;
           } else {
@@ -97,12 +96,12 @@ export default {
           }
         }
       }
-      console.log("test: ", test)
+      // console.log("test: ", test)
       return test;
     },
   },
   async mounted() {
-    console.log("mountedFilms");
+    console.log("mountedFilms 1");
     const urlFilms = `https://swapi.dev/api/films`;
     let count = 1;
 
@@ -113,10 +112,14 @@ export default {
     try {
       filmsResponse = await fetch(urlFilms);
       const filmsData = await filmsResponse.json();
-      console.log("Movies data from API: ", filmsData);
+      console.log("Movies data from API: 1", filmsData);
       this.movies = filmsData;
 
       while (count != 82) {
+        if (count == 17)
+        {
+          count += 1;
+        }
 
         peopleResponse = await fetch(
           `https://swapi.dev/api/people/` + count + `/`
@@ -126,8 +129,8 @@ export default {
         this.characters[count] = peopleData.name;
         count += 1;
       }
-      console.log("Peoples data from API: ", this.characters);
-      console.log("Url data from API: ", this.urls);
+      console.log("Peoples data from API 1: ", this.characters);
+      console.log("Url data from API: 1", this.urls);
     } catch (error) {
       if (filmsResponse || peopleResponse) {
         this.errorMessage = "Data is in the wrong format. Try again later.";
