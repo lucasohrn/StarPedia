@@ -20,7 +20,7 @@ export default {
   components: {
     Main,
     Header,
-    Footer,
+    Footer
   },
   data: () => ({
  
