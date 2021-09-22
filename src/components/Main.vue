@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>StarPedia</h1>
     <search-bar
       :search="search"
       @updateSearch="onUpdateSearch"
@@ -13,19 +12,27 @@
           :disabled="enableDisablePeople"
           v-on:click="myFunction()"
         >
-          Show People
+          <h3>Show People</h3> 
         </button>
         <button
           class="showButton"
           :disabled="enableDisableFilms"
           v-on:click="myFunction()"
         >
-          Show Films
+          <h3>Show Films</h3>
         </button>
       </div>
-
-      <People :searchQuery="search" v-show="isHidden"></People>
-      <Films v-show="!isHidden"></Films>
+      
+      <transition name="fade">
+        <div v-if="show"><People :searchQuery="search" v-show="isHidden"></People></div>
+        
+      </transition>
+      <transition name="fade">
+        <div v-if="!show">
+          <Films v-show="!isHidden"></Films>
+        </div>
+      </transition>
+      
     </div>
   </div>
 </template>
@@ -45,7 +52,8 @@ export default {
       search:"",
       enableDisablePeople: true,
       enableDisableFilms: false,
-      isHidden: true, 
+      isHidden: true,
+      show: true
   }),
   
   methods: {
@@ -54,11 +62,14 @@ export default {
       console.log("main.onUpdateSearch", queryString)
     },
     myFunction: function () {
+
       if (!this.isHidden) {
+        this.show = true;
         this.isHidden = !this.isHidden;
         this.enableDisablePeople = true;
         this.enableDisableFilms = false;
       } else {
+        this.show = false;
         this.isHidden = !this.isHidden;
         this.enableDisablePeople = false;
         this.enableDisableFilms = true;
@@ -70,4 +81,44 @@ export default {
 };
 </script>
 <style scoped>
+*{
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+button{
+  border: black;
+}
+button h3{
+  font-size: 1em;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.showButton:hover:active{
+  box-shadow: -1rem 0 3rem rgba(219, 221, 195, 0.678);
+}
+.showButton:enabled{
+  background-color: rgb(183, 212, 52);
+  color: rgb(0, 0, 0);
+}
+.showButton:active{
+  background-color: rgb(238, 255, 0);
+}
+.fade-enter-from {
+  opacity: 0;
+}
+.fade-enter-to {
+  opacity: 1;
+}
+.fade-enter-active {
+  transition-delay: 1s;
+  transition: all 2s ease;
+}
+.fade-leave-from{
+  opacity: 1;
+}
+.fade-leave-to{
+  opacity: 0;
+}
+.fade-leave-active{
+  transition: all 0.1s ease;
+}
 </style>

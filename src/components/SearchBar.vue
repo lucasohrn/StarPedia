@@ -1,6 +1,6 @@
 <template>
     <div class="search">
-      <input type="text" v-model="search" placeholder="search"/>
+      <input type="text" v-model="search" placeholder="Search.."/>
       <button>
         <img src="../assets/search.png" alt="search" class="searchButton" />
       </button>
@@ -10,7 +10,7 @@
 <script>
 export default {
  data:() =>({
-   search:''
+   search:'',
  }),
 
   watch:{
@@ -35,8 +35,7 @@ export default {
   height: 2em;
 }
 * {
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
+  font-family:Georgia, 'Times New Roman', Times, serif;
 }
 h1 {
   color: black;

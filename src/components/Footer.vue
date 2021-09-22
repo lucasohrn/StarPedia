@@ -44,6 +44,7 @@ a {
   color: #e2e3e5;
 }
 .content {
-    padding-bottom: 2em;
+  padding-top: 2em;
+  padding-bottom: 2em;
 }
 </style>
