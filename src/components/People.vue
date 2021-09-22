@@ -23,8 +23,8 @@
         </li>
       </ul>
     </div>
-    <button class="previous">Previous</button>
-    <button v-on:click="getNext">next</button>
+    <button class="showButton"><img src="../assets/arrow_left.png" alt="left_arrow"></button>
+    <button class="showButton" v-on:click="getNext"><img src="../assets/arrow_right.png" alt="right_arrow"></button>
   </div>
 </template>
 
@@ -112,7 +112,7 @@ p {
   color: rgb(241, 233, 111);
   font-size: 1.5em;
   margin-top: 1em;
-  margin-left: 1em;
+  margin-left: 0.8em;
   margin-right: 1em;
 }
 h1 {
@@ -153,8 +153,32 @@ h1 {
   margin-left: 100px;
   margin-right: 60px;
 }
+.readMore{
+  margin-top: 0.6em;
+}
 .readMore:hover {
   background: lightblue;
   cursor: pointer;
+}
+.showButton{
+  margin-top: 3em;
+  margin-left: 2em;
+  margin-right: 2em;
+}
+.showButton img{
+  max-width: 50px;
+}
+button{
+  border: black;
+}
+.showButton:hover{
+  box-shadow: -1rem 0 3rem rgba(219, 221, 195, 0.678);
+}
+.showButton:enabled{
+  background-color: rgb(183, 212, 52);
+  color: rgb(0, 0, 0);
+}
+.showButton:active{
+  background-color: rgb(238, 255, 0);
 }
 </style>

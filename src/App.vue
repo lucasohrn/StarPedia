@@ -65,6 +65,4 @@ export default {
   margin: 0.3em;
   width: 8em;
 }
-.buttons {
-}
 </style>
