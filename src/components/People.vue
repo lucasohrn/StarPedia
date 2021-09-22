@@ -20,7 +20,7 @@
             >
               <p>{{ film.name }}</p>
             </li>
-            <button class="readMore">Read More</button>
+            <!-- <button class="readMore">Read More</button> -->
           </div>
         </li>
       </ul>
@@ -35,6 +35,7 @@ export default {
   data: () => ({
     errorMessage: "No results yet",
     dataFromApi: {},
+    peopleFromApi: [],
     people: [],
     index: 0,
     url: `https://swapi.dev/api/people`,
@@ -45,13 +46,12 @@ export default {
     searchQuery: function (newVal, oldVal) {
       console.log("people.getnext searchqury:", this.searchQuery);
       this.onSearchBarChange();
-      console.log("people Watch Values: old:",oldVal,"new:",newVal)
+      console.log("people Watch Values: old:", oldVal, "new:", newVal);
     },
   },
-  
+
   methods: {
-    getNext() {
-    },
+    getNext() {},
 
     getPrevious() {
       if (this.dataFromApi.previous != null) {
@@ -65,9 +65,39 @@ export default {
       return this.people;
     },
 
+    async getAPIData() {
+      if (!this.dataFromApi) {
+        return "";
+      } else {
+        while (this.peopleFromApi.length < this.dataFromApi.count -1) {
+          let safety = 0;
+          if (safety > this.dataFromApi.count / 10 + 1) {
+            console.log("People, getApiData something is proably broken");
+            break;
+          }
+
+          for (
+            let index = 0;
+            index < this.dataFromApi.results.length;
+            index++
+          ) {
+            const person = this.dataFromApi.results[index];
+            this.peopleFromApi[this.peopleFromApi.length + 1] = person;
+          }
+          if (this.dataFromApi.next != null) {
+            console.log("people getApiData", this.dataFromApi.next)
+          }
+          console.log("people getApiData", this.peopleFromApi.length)
+          safety++;
+        }
+        console.log("loop done1", this.films);
+        return this.films;
+      }
+    },
+
     filterItems(arr, query) {
-      console.log("array:",arr)
-      return arr.filter(person => {
+      console.log("array:", arr);
+      return arr.filter((person) => {
         return person.name.toLowerCase().indexOf(query.toLowerCase()) !== -1;
       });
     },
@@ -79,14 +109,13 @@ export default {
     const url = this.url;
     let response;
     this.errorMessage = "";
+    this.getAPIData()
     try {
       response = await fetch(url);
       const data = await response.json();
-      console.log("People.MountPeople, data from API: ", data);
-
-      this.dataFromApi = data;   
-     
-      } catch (error) {
+      this.dataFromApi = data;
+      this.onSearchBarChange()
+    } catch (error) {
       if (response) {
         this.errorMessage = "Data is in the wrong format. Try again later.";
       } else {
@@ -149,8 +178,7 @@ p {
   margin-left: 100px;
   margin-right: 60px;
 }
-.readMore {
-}
+
 .readMore:hover {
   background: lightblue;
   cursor: pointer;
