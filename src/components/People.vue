@@ -23,8 +23,12 @@
         </li>
       </ul>
     </div>
-    <button class="showButton"><img src="../assets/arrow_left.png" alt="left_arrow"></button>
-    <button class="showButton" v-on:click="getNext"><img src="../assets/arrow_right.png" alt="right_arrow"></button>
+    <button class="showButton" v-on:click="getPrevious">
+      <img src="../assets/arrow_left.png" alt="left_arrow" />
+    </button>
+    <button class="showButton" v-on:click="getNext">
+      <img src="../assets/arrow_right.png" alt="right_arrow" />
+    </button>
   </div>
 </template>
 
@@ -36,6 +40,8 @@ export default {
     people: [],
     index: 0,
     url: `https://swapi.dev/api/people`,
+    nextUrl: "",
+    previousUrl: ""
   }),
   props: ["searchQuery"],
 
@@ -43,36 +49,12 @@ export default {
     searchQuery: function (newVal, oldVal) {
       console.log("people.getnext searchqury:", this.searchQuery);
       this.onSearchBarChange();
-      console.log("people Watch Values: old:",oldVal,"new:",newVal)
+      console.log("people Watch Values: old:", oldVal, "new:", newVal);
     },
   },
-  
+
   methods: {
-    getNext() {
-    },
-
-    getPrevious() {
-      if (this.dataFromApi.previous != null) {
-        this.url = this.dataFromApi.previous;
-      }
-    },
-
-    onSearchBarChange() {
-      let query = this.searchQuery;
-      this.people = this.filterItems(this.dataFromApi.results, query);
-      return this.people;
-    },
-
-    filterItems(arr, query) {
-      console.log("array:",arr)
-      return arr.filter(person => {
-        return person.name.toLowerCase().indexOf(query.toLowerCase()) !== -1;
-      });
-    },
-  },
-  //methods
-
-  async mounted() {
+    async drawMap() {
     console.log("mountedPeople");
     const url = this.url;
     let response;
@@ -84,8 +66,7 @@ export default {
 
       this.dataFromApi = data;
       this.onSearchBarChange();
-     
-      } catch (error) {
+    } catch (error) {
       if (response) {
         this.errorMessage = "Data is in the wrong format. Try again later.";
       } else {
@@ -93,6 +74,35 @@ export default {
           "Could not send request. Check your internet connection.";
       }
     }
+      
+    },
+    async getNext() {
+      this.url = this.dataFromApi.next;
+      this.drawMap();
+    },
+
+    async getPrevious() {
+      this.url = this.dataFromApi.previous;
+      this.drawMap();
+    },
+
+    onSearchBarChange() {
+      let query = this.searchQuery;
+      this.people = this.filterItems(this.dataFromApi.results, query);
+      return this.people;
+    },
+
+    filterItems(arr, query) {
+      console.log("array:", arr);
+      return arr.filter((person) => {
+        return person.name.toLowerCase().indexOf(query.toLowerCase()) !== -1;
+      });
+    },
+  },
+  //methods
+
+  async mounted() {
+    await this.drawMap();
   },
 };
 </script>
@@ -100,7 +110,7 @@ export default {
 <style scoped>
 * {
   flex: 1;
-  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-family: Georgia, "Times New Roman", Times, serif;
 }
 .component {
   border: 1px solid gray;
@@ -153,32 +163,32 @@ h1 {
   margin-left: 100px;
   margin-right: 60px;
 }
-.readMore{
+.readMore {
   margin-top: 0.6em;
 }
 .readMore:hover {
   background: lightblue;
   cursor: pointer;
 }
-.showButton{
+.showButton {
   margin-top: 3em;
   margin-left: 2em;
   margin-right: 2em;
 }
-.showButton img{
+.showButton img {
   max-width: 50px;
 }
-button{
+button {
   border: black;
 }
-.showButton:hover{
+.showButton:hover {
   box-shadow: -1rem 0 3rem rgba(219, 221, 195, 0.678);
 }
-.showButton:enabled{
+.showButton:enabled {
   background-color: rgb(183, 212, 52);
   color: rgb(0, 0, 0);
 }
-.showButton:active{
+.showButton:active {
   background-color: rgb(238, 255, 0);
 }
 </style>
