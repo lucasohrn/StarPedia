@@ -82,11 +82,10 @@ export default {
         this.urls[count] = `https://swapi.dev/api/films/` + count + `/`;
         const filmsData = await filmsResponse.json();
         this.movies[count] = filmsData.title;
-        //this.moviesForUrl[count] = filmsData.url;
-        console.log("test", filmsData.url)
         count += 1;
       }
-      console.log(this.movies)
+      console.log("nu", this.movies)
+      console.log("nej", this.moviesForUrl)
 
         this.onSearchBarChange();
       } catch (error) {
