@@ -12,7 +12,10 @@
             <h4>Eyecolor:</h4>
             {{ person.eye_color }} <br />
 
-            {{"" + returnFilm(person.films) + "\n"}}
+            <div class="opening-crawl">
+              {{"" + returnFilm(person.films) + "\n"}}
+            </div>
+            
           </div>
         </li>
         
@@ -53,21 +56,18 @@ export default {
   },
   methods: {
     returnFilm(movieUrls) {
-      let movieNames = [null]
-      let movieNumbers = [null]
+      let movieNames = []
+      let movieNumbers = []
+      
       for (let i = 0; i < movieUrls.length; i++) 
       {
-        // movieNumbers.push(movieUrls[i].substring(28,29))
-        // if (movieNumbers[i] 1 == this.movies[movieNumbers[i]]) {
-        //   movieNames[i] = this.movies[i]
-        // }
-        movieNumbers.forEach(movie => {
-          movieNames.push(this.movies[movie - 1])
-        });
-
-        console.log(movieNames)
-        return movieNames
+        movieNumbers.push(movieUrls[i].substring(28,29))
+        console.log("movieurls: ", movieNumbers);
+        movieNames[i] = this.movies[movieNumbers[i]];
       }
+        console.log("movienames: ", this.movies)
+        return movieNames
+      
 
     },
     async drawMap() {
@@ -246,5 +246,19 @@ button {
 }
 .showButton:disabled{
   background-color: rgb(85, 88, 29);
+}
+.card .opening-crawl {
+  font-size: 1em;
+  display: none;
+  position: relative;
+  z-index: 101;
+}
+.card:hover .opening-crawl {
+  transition: 0.5s all;
+  display: block;
+  background: rgb(143, 148, 67);
+  color: rgb(255, 255, 255);
+  position: absolute;
+  opacity: 1;
 }
 </style>
