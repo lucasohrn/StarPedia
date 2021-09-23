@@ -12,9 +12,6 @@
             {{ person.birth_year }} <br />
             <h4>Eyecolor:</h4>
             {{ person.eye_color }} <br />
-
-            {{ "" + returnFilms(person.films) }} <br />
-            <button v-on:click="readMore" class="readMore">Read More</button>
           </div>
         </li>
       </ul>
@@ -38,6 +35,7 @@ export default {
     url: `https://swapi.dev/api/people`,
     nextUrl: "",
     previousUrl: "",
+    test: []
   }),
   props: ["searchQuery"],
 
@@ -54,10 +52,12 @@ export default {
       let moviesForPerson = [null];
       console.log("längd", movieUrl.length);
       for (let i = 0; i < movieUrl.length; i++) {
-        moviesForPerson[i] = await this.getMoviesByCharacter(movieUrl[i]);
+        moviesForPerson[i] = await this.getMoviesByCharacter(await movieUrl[i]);
         console.log("movies", moviesForPerson[i])
+        this.test[i] = await moviesForPerson[i]
       }
-      return moviesForPerson
+      console.log("TEST", this.test)
+      return this.test
     },
     async getMoviesByCharacter(url) {
       let response;
@@ -67,7 +67,7 @@ export default {
         const data = await response.json();
 
         console.log("data.name", data.title)
-        return data.title;
+        return await data.title;
 
       } catch (error) {
         if (response) {
