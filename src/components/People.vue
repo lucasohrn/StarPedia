@@ -11,19 +11,16 @@
             {{ person.birth_year }} <br />
             <h4>Eyecolor:</h4>
             {{ person.eye_color }} <br />
-            <li
-              v-for="film in dataFromApi.results.films"
-              v-bind:key="film.name"
-            >
-              <p>{{ film.name }}</p>
-            </li>
-            <!-- <button class="readMore">Read More</button> -->
           </div>
         </li>
       </ul>
     </div>
-    <button class="previous">Previous</button>
-    <button v-on:click="getNext">next</button>
+    <button class="showButton" v-on:click="getPrevious">
+      <img src="../assets/arrow_left.png" alt="left_arrow" />
+    </button>
+    <button class="showButton" v-on:click="getNext">
+      <img src="../assets/arrow_right.png" alt="right_arrow" />
+    </button>
   </div>
 </template>
 
@@ -36,6 +33,9 @@ export default {
     people: [],
     index: 0,
     url: `https://swapi.dev/api/people`,
+    nextUrl: "",
+    previousUrl: "",
+    test: []
   }),
   props: ["searchQuery"],
 
@@ -48,12 +48,65 @@ export default {
   },
 
   methods: {
-    getNext() {},
-
-    getPrevious() {
-      if (this.dataFromApi.previous != null) {
-        this.url = this.dataFromApi.previous;
+    async returnFilms(movieUrl) {
+      let moviesForPerson = [null];
+      console.log("längd", movieUrl.length);
+      for (let i = 0; i < movieUrl.length; i++) {
+        moviesForPerson[i] = await this.getMoviesByCharacter(await movieUrl[i]);
+        console.log("movies", moviesForPerson[i])
+        this.test[i] = await moviesForPerson[i]
       }
+      console.log("TEST", this.test)
+      return this.test
+    },
+    async getMoviesByCharacter(url) {
+      let response;
+      this.errorMessage = "";
+      try {
+        response = await fetch(url);
+        const data = await response.json();
+
+        console.log("data.name", data.title)
+        return await data.title;
+
+      } catch (error) {
+        if (response) {
+          this.errorMessage = "Data is in the wrong format. Try again later.";
+        } else {
+          this.errorMessage =
+            "Could not send request. Check your internet connection.";
+        }
+      }
+    },
+    async drawMap() {
+      console.log("mountedPeople");
+      const url = this.url;
+      let response;
+      this.errorMessage = "";
+      try {
+        response = await fetch(url);
+        const data = await response.json();
+        console.log("People.MountPeople, data from API: ", data);
+
+        this.dataFromApi = data;
+        this.onSearchBarChange();
+      } catch (error) {
+        if (response) {
+          this.errorMessage = "Data is in the wrong format. Try again later.";
+        } else {
+          this.errorMessage =
+            "Could not send request. Check your internet connection.";
+        }
+      }
+    },
+    async getNext() {
+      this.url = this.dataFromApi.next;
+      this.drawMap();
+    },
+
+    async getPrevious() {
+      this.url = this.dataFromApi.previous;
+      this.drawMap();
     },
 
     onSearchBarChange() {
@@ -102,24 +155,7 @@ export default {
   //methods
 
   async mounted() {
-    console.log("mountedPeople");
-    const url = this.url;
-    let response;
-    this.errorMessage = "";
-    this.getAPIData()
-    try {
-      response = await fetch(url);
-      const data = await response.json();
-      this.dataFromApi = data;
-      this.onSearchBarChange()
-    } catch (error) {
-      if (response) {
-        this.errorMessage = "Data is in the wrong format. Try again later.";
-      } else {
-        this.errorMessage =
-          "Could not send request. Check your internet connection.";
-      }
-    }
+    await this.drawMap();
   },
 };
 </script>
@@ -127,7 +163,7 @@ export default {
 <style scoped>
 * {
   flex: 1;
-  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-family: Georgia, "Times New Roman", Times, serif;
 }
 .component {
   border: 1px solid gray;
@@ -139,8 +175,8 @@ p {
   color: rgb(241, 233, 111);
   font-size: 1.5em;
   margin-top: 1em;
-  margin-left: 1em;
-  margin-right: 1em;
+  margin-left: 0.1em;
+  margin-right: 0.1em;
 }
 h1 {
   margin: 1em;
@@ -180,8 +216,32 @@ h1 {
   margin-left: 100px;
   margin-right: 60px;
 }
+.readMore {
+  margin-top: 0.6em;
+}
 .readMore:hover {
   background: lightblue;
   cursor: pointer;
+}
+.showButton {
+  margin-top: 3em;
+  margin-left: 2em;
+  margin-right: 2em;
+}
+.showButton img {
+  max-width: 50px;
+}
+button {
+  border: black;
+}
+.showButton:hover {
+  box-shadow: -1rem 0 3rem rgba(219, 221, 195, 0.678);
+}
+.showButton:enabled {
+  background-color: rgb(183, 212, 52);
+  color: rgb(0, 0, 0);
+}
+.showButton:active {
+  background-color: rgb(238, 255, 0);
 }
 </style>

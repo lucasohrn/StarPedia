@@ -20,7 +20,7 @@ export default {
   components: {
     Main,
     Header,
-    Footer,
+    Footer
   },
   data: () => ({
  
@@ -64,7 +64,5 @@ export default {
   cursor: pointer;
   margin: 0.3em;
   width: 8em;
-}
-.buttons {
 }
 </style>
