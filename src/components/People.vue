@@ -110,6 +110,7 @@ export default {
         this.count = this.people.length
       }
       else{  
+        //change css on buttons
         this.people = this.filterItems(this.peopleFromApi, query);
         this.count = this.people.length
       }
@@ -233,5 +234,8 @@ button {
 }
 .showButton:active {
   background-color: rgb(238, 255, 0);
+}
+.showButton:disabled{
+   background-color: rgb(85, 88, 29);
 }
 </style>
