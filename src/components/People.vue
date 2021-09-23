@@ -12,13 +12,9 @@
             {{ person.birth_year }} <br />
             <h4>Eyecolor:</h4>
             {{ person.eye_color }} <br />
-            <li
-              v-for="film in dataFromApi.results.films"
-              v-bind:key="film.name"
-            >
-              <p>{{ film.name }}</p>
-            </li>
-            <button class="readMore">Read More</button>
+
+            {{ "" + returnFilms(person.films) }} <br />
+            <button v-on:click="readMore" class="readMore">Read More</button>
           </div>
         </li>
       </ul>
@@ -41,7 +37,7 @@ export default {
     index: 0,
     url: `https://swapi.dev/api/people`,
     nextUrl: "",
-    previousUrl: ""
+    previousUrl: "",
   }),
   props: ["searchQuery"],
 
@@ -54,27 +50,54 @@ export default {
   },
 
   methods: {
-    async drawMap() {
-    console.log("mountedPeople");
-    const url = this.url;
-    let response;
-    this.errorMessage = "";
-    try {
-      response = await fetch(url);
-      const data = await response.json();
-      console.log("People.MountPeople, data from API: ", data);
-
-      this.dataFromApi = data;
-      this.onSearchBarChange();
-    } catch (error) {
-      if (response) {
-        this.errorMessage = "Data is in the wrong format. Try again later.";
-      } else {
-        this.errorMessage =
-          "Could not send request. Check your internet connection.";
+    async returnFilms(movieUrl) {
+      let moviesForPerson = [null];
+      console.log("längd", movieUrl.length);
+      for (let i = 0; i < movieUrl.length; i++) {
+        moviesForPerson[i] = await this.getMoviesByCharacter(movieUrl[i]);
+        console.log("movies", moviesForPerson[i])
       }
-    }
-      
+      return moviesForPerson
+    },
+    async getMoviesByCharacter(url) {
+      let response;
+      this.errorMessage = "";
+      try {
+        response = await fetch(url);
+        const data = await response.json();
+
+        console.log("data.name", data.title)
+        return data.title;
+
+      } catch (error) {
+        if (response) {
+          this.errorMessage = "Data is in the wrong format. Try again later.";
+        } else {
+          this.errorMessage =
+            "Could not send request. Check your internet connection.";
+        }
+      }
+    },
+    async drawMap() {
+      console.log("mountedPeople");
+      const url = this.url;
+      let response;
+      this.errorMessage = "";
+      try {
+        response = await fetch(url);
+        const data = await response.json();
+        console.log("People.MountPeople, data from API: ", data);
+
+        this.dataFromApi = data;
+        this.onSearchBarChange();
+      } catch (error) {
+        if (response) {
+          this.errorMessage = "Data is in the wrong format. Try again later.";
+        } else {
+          this.errorMessage =
+            "Could not send request. Check your internet connection.";
+        }
+      }
     },
     async getNext() {
       this.url = this.dataFromApi.next;
@@ -122,8 +145,8 @@ p {
   color: rgb(241, 233, 111);
   font-size: 1.5em;
   margin-top: 1em;
-  margin-left: 0.8em;
-  margin-right: 1em;
+  margin-left: 0.1em;
+  margin-right: 0.1em;
 }
 h1 {
   margin: 1em;
