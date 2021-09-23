@@ -15,6 +15,7 @@
         </li>
       </ul>
     </div>
+    <p>showing results {{this.count}}</p>
     <button class="showButton" v-on:click="getPrevious">
       <img src="../assets/arrow_left.png" alt="left_arrow" />
     </button>
@@ -36,6 +37,7 @@ export default {
     urls: [],
     nextUrl: "",
     previousUrl: "",
+    count: 0
   }),
   props: ["searchQuery"],
 
@@ -102,7 +104,15 @@ export default {
 
     onSearchBarChange() {
       let query = this.searchQuery;
-      this.people = this.filterItems(this.peopleFromApi, query);
+
+      if (this.searchQuery == "") {
+        this.people = this.filterItems(this.dataFromApi.results, query)
+        this.count = this.people.length
+      }
+      else{  
+        this.people = this.filterItems(this.peopleFromApi, query);
+        this.count = this.people.length
+      }
       return this.people;
     },
 
