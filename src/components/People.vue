@@ -33,30 +33,25 @@ export default {
     people: [],
     index: 0,
     url: `https://swapi.dev/api/people`,
+    urls: [],
     nextUrl: "",
     previousUrl: "",
-    test: []
   }),
   props: ["searchQuery"],
 
   watch: {
-    searchQuery: function (newVal, oldVal) {
-      console.log("people.getnext searchqury:", this.searchQuery);
+    searchQuery: function () {
       this.onSearchBarChange();
-      console.log("people Watch Values: old:", oldVal, "new:", newVal);
     },
   },
 
   methods: {
     async returnFilms(movieUrl) {
       let moviesForPerson = [null];
-      console.log("längd", movieUrl.length);
       for (let i = 0; i < movieUrl.length; i++) {
         moviesForPerson[i] = await this.getMoviesByCharacter(await movieUrl[i]);
-        console.log("movies", moviesForPerson[i])
         this.test[i] = await moviesForPerson[i]
       }
-      console.log("TEST", this.test)
       return this.test
     },
     async getMoviesByCharacter(url) {
@@ -66,7 +61,6 @@ export default {
         response = await fetch(url);
         const data = await response.json();
 
-        console.log("data.name", data.title)
         return await data.title;
 
       } catch (error) {
@@ -79,15 +73,12 @@ export default {
       }
     },
     async drawMap() {
-      console.log("mountedPeople");
       const url = this.url;
       let response;
       this.errorMessage = "";
       try {
         response = await fetch(url);
         const data = await response.json();
-        console.log("People.MountPeople, data from API: ", data);
-
         this.dataFromApi = data;
         this.onSearchBarChange();
       } catch (error) {
@@ -111,42 +102,30 @@ export default {
 
     onSearchBarChange() {
       let query = this.searchQuery;
-      this.people = this.filterItems(this.dataFromApi.results, query);
+      this.people = this.filterItems(this.peopleFromApi, query);
       return this.people;
     },
 
     async getAPIData() {
-      if (!this.dataFromApi) {
-        return "";
-      } else {
-        while (this.peopleFromApi.length < this.dataFromApi.count -1) {
-          let safety = 0;
-          if (safety > this.dataFromApi.count / 10 + 1) {
-            console.log("People, getApiData something is proably broken");
-            break;
-          }
-
-          for (
-            let index = 0;
-            index < this.dataFromApi.results.length;
-            index++
-          ) {
-            const person = this.dataFromApi.results[index];
-            this.peopleFromApi[this.peopleFromApi.length + 1] = person;
-          }
-          if (this.dataFromApi.next != null) {
-            console.log("people getApiData", this.dataFromApi.next)
-          }
-          console.log("people getApiData", this.peopleFromApi.length)
-          safety++;
+    let peopleResponse;
+    let count = 1
+      while (count != this.dataFromApi.count - 1) {
+        if (count == 17)
+        {
+          count += 1; // seventeen doesn't work
         }
-        console.log("loop done1", this.films);
-        return this.films;
+
+        peopleResponse = await fetch(
+          `https://swapi.dev/api/people/` + count + `/`
+        );
+        this.urls[count] = `https://swapi.dev/api/people/` + count + `/`;
+        const peopleData = await peopleResponse.json();
+        this.peopleFromApi[count] = peopleData;
+        count += 1;
       }
     },
 
     filterItems(arr, query) {
-      console.log("array:", arr);
       return arr.filter((person) => {
         return person.name.toLowerCase().indexOf(query.toLowerCase()) !== -1;
       });
@@ -156,6 +135,7 @@ export default {
 
   async mounted() {
     await this.drawMap();
+    await this.getAPIData();
   },
 };
 </script>
