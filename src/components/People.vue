@@ -11,9 +11,11 @@
             {{ person.birth_year }} <br />
             <h4>Eyecolor:</h4>
             {{ person.eye_color }} <br />
+
             {{"" + returnFilm(person.films) + "\n"}}
           </div>
         </li>
+        
       </ul>
     </div>
     <p>Showing results {{this.count}}</p>
@@ -50,19 +52,23 @@ export default {
     },
   },
   methods: {
-    returnFilm(movieUrl) {
-      let characterMovie = [null]
-      for (let i = 0; i < movieUrl.length; i++) {
-        for (let j = 1; j < this.movies.length; j++) {
-          if (movieUrl[i] == this.movies[j]) {
-            characterMovie[i] = ("\n" + this.characters[j]);
-            break;
-          } else {
-            continue;
-          }
-        }
+    returnFilm(movieUrls) {
+      let movieNames = [null]
+      let movieNumbers = [null]
+      for (let i = 0; i < movieUrls.length; i++) 
+      {
+        // movieNumbers.push(movieUrls[i].substring(28,29))
+        // if (movieNumbers[i] 1 == this.movies[movieNumbers[i]]) {
+        //   movieNames[i] = this.movies[i]
+        // }
+        movieNumbers.forEach(movie => {
+          movieNames.push(this.movies[movie - 1])
+        });
+
+        console.log(movieNames)
+        return movieNames
       }
-      return characterMovie;
+
     },
     async drawMap() {
       const url = this.url;
@@ -82,11 +88,8 @@ export default {
         this.urls[count] = `https://swapi.dev/api/films/` + count + `/`;
         const filmsData = await filmsResponse.json();
         this.movies[count] = filmsData.title;
-        //this.moviesForUrl[count] = filmsData.url;
-        console.log("test", filmsData.url)
         count += 1;
       }
-      console.log(this.movies)
 
         this.onSearchBarChange();
       } catch (error) {
