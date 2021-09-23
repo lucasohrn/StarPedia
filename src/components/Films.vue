@@ -98,7 +98,7 @@ export default {
       const filmsData = await filmsResponse.json();
       this.movies = filmsData;
 
-      while (count != 82) {
+      while (count != 83) {
         if (count == 17)
         {
           count += 1;

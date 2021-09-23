@@ -11,11 +11,12 @@
             {{ person.birth_year }} <br />
             <h4>Eyecolor:</h4>
             {{ person.eye_color }} <br />
+            {{"" + returnFilm(person.films) + "\n"}}
           </div>
         </li>
       </ul>
     </div>
-    <p>showing results {{this.count}}</p>
+    <p>Showing results {{this.count}}</p>
     <button class="showButton" v-on:click="getPrevious">
       <img src="../assets/arrow_left.png" alt="left_arrow" />
     </button>
@@ -34,10 +35,12 @@ export default {
     people: [],
     index: 0,
     url: `https://swapi.dev/api/people`,
-    urls: [],
+    urls: {},
     nextUrl: "",
     previousUrl: "",
-    count: 0
+    count: 0,
+    movieForUrl: {},
+    movies: {}
   }),
   props: ["searchQuery"],
 
@@ -46,42 +49,45 @@ export default {
       this.onSearchBarChange();
     },
   },
-
   methods: {
-    async returnFilms(movieUrl) {
-      let moviesForPerson = [null];
+    returnFilm(movieUrl) {
+      let characterMovie = [null]
       for (let i = 0; i < movieUrl.length; i++) {
-        moviesForPerson[i] = await this.getMoviesByCharacter(await movieUrl[i]);
-        this.test[i] = await moviesForPerson[i]
-      }
-      return this.test
-    },
-    async getMoviesByCharacter(url) {
-      let response;
-      this.errorMessage = "";
-      try {
-        response = await fetch(url);
-        const data = await response.json();
-
-        return await data.title;
-
-      } catch (error) {
-        if (response) {
-          this.errorMessage = "Data is in the wrong format. Try again later.";
-        } else {
-          this.errorMessage =
-            "Could not send request. Check your internet connection.";
+        for (let j = 1; j < this.movies.length; j++) {
+          if (movieUrl[i] == this.movies[j]) {
+            characterMovie[i] = ("\n" + this.characters[j]);
+            break;
+          } else {
+            continue;
+          }
         }
       }
+      return characterMovie;
     },
     async drawMap() {
       const url = this.url;
+      let count = 1;
       let response;
+      let filmsResponse;
       this.errorMessage = "";
       try {
         response = await fetch(url);
         const data = await response.json();
         this.dataFromApi = data;
+
+        while (count != 7) {
+        filmsResponse = await fetch(
+          `https://swapi.dev/api/films/` + count + `/`
+        );
+        this.urls[count] = `https://swapi.dev/api/films/` + count + `/`;
+        const filmsData = await filmsResponse.json();
+        this.movies[count] = filmsData.title;
+        //this.moviesForUrl[count] = filmsData.url;
+        console.log("test", filmsData.url)
+        count += 1;
+      }
+      console.log(this.movies)
+
         this.onSearchBarChange();
       } catch (error) {
         if (response) {
